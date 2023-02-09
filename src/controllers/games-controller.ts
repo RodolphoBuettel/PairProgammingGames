@@ -5,7 +5,7 @@ import gamesService, { GameInput } from "../services/games-service";
 
 export async function getGames(req: Request, res: Response) {
   const games = await gamesService.getGames();
-  res.send(games);
+  res.send(games).status(httpStatus.OK);
 }
 
 export async function getSpecificGame(req: Request, res: Response) {
