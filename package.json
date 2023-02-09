@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/server.ts"
+    "test": "npx dotenv -e .env.test npx jest -- --forceExit",
+    "coverage": "npm run test -- --coverage",
+    "dev":"nodemon src/server.ts"
   },
   "keywords": [],
   "author": "",

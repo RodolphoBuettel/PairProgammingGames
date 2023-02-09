@@ -3,13 +3,14 @@ import supertest from "supertest";
 import httpStatus from "http-status";
 import { createGames } from "./factories/games.factory";
 import { createConsole } from "./factories/console.factory";
-import { cleanDb, disconnectDb } from "./helpers";
+import { cleanDb, connect, disconnectDb } from "./helpers";
 import { faker } from "@faker-js/faker";
 import prisma from "config/database";
 
 const server = supertest(app);
 
 beforeEach(async () => {
+  await connect();
   await cleanDb();
 });
 
@@ -33,14 +34,14 @@ describe("GET/ games", () => {
     expect(games.status).toBe(httpStatus.OK);
     expect(games.body).toEqual([
       {
-        id: createGame.id,
-        title: createGame.title,
-        consoleId: createGame.consoleId,
         Console: {
           id: console.id,
           name: console.name
-        }
-      },
+        },
+        consoleId: createGame.consoleId,
+        id: createGame.id,
+        title: createGame.title
+      }
     ]);
   })
 });
